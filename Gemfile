@@ -63,3 +63,6 @@ gem 'database_cleaner', '1.4.1'
 gem 'haml'
 gem 'spring'
 
+#add bootstrap 
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
