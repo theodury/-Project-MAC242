@@ -1,9 +1,9 @@
 -# This file is app/view/movies/index.html.haml
-%h1 All Movies
 
-%table#movies
+%h1 All Movies
+%table.table
   %thead
-    %tr
+    %tr   
       %th Movie Title
       %th Rating
       %th Release Date
@@ -15,5 +15,27 @@
         %td= movie.rating
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
+     
+- define_tag :LinkButton do |attributes, content|
+  %a.btn.btn-default{attributes}= content
+%LinkButton{href: new_movie_path} Add new movie     
 
-= link_to 'Add new movie', new_movie_path
+
+
+%h1 Heading 1
+%p A paragraph
+
+- if true
+  %p True
+
+%ul
+  - [1,2,3].each do |element|
+    %li=element
+
+:javascript
+  $(document).ready(function() {
+    alert("#{flash[:notice]}");
+  });
+
+:textile
+  I prefer to write my documents using **textile**

@@ -1,17 +1,27 @@
-!!! 5
+-# app/views/layouts/application.html.haml
+
+-# Jam in a flash[:notice] so that we can see the flash rendering in effect
+- flash[:notice] = "This is a test"
+!!!
 %html
   %head
-    %title Rotten Potatoes!
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %title= content_for?(:title) ? yield(:title) : "App_Name"
+    %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
+    = stylesheet_link_tag :application, :media => "all"
+    = javascript_include_tag :application
     = csrf_meta_tags
-
+    = yield(:head)
   %body
-    %h1.title Project MAC 212 Team Zeta!
-    #main
-      - if flash[:notice]
-        #notice.message= flash[:notice]
-      - elsif flash[:warning]
-        #warning.message= flash[:warning]
-
-      = yield
+    %header.navbar.navbar-fixed-top.navbar-inverse
+      %nav.navbar-inner
+        .container
+      %a.brand{:href => "/"} Our First HTML5 haml example
+    #main{:role => "main"}
+      .container
+        .content
+          .row
+            .span12
+              = render 'layouts/messages'
+              = yield
+          %footer

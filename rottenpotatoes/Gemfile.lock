@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (3.2.15)
       actionpack (= 3.2.15)
       mail (~> 2.5.4)
@@ -29,6 +30,8 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.2)
+    bootstrap-sass (3.3.1.0)
+      sass (~> 3.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -48,6 +51,13 @@ GEM
     execjs (2.0.2)
     haml (4.0.4)
       tilt
+    haml-contrib (1.0.0.1)
+      haml (>= 3.2.0.alpha.13)
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hike (1.2.3)
     i18n (0.6.5)
     journey (1.0.4)
@@ -122,9 +132,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
+  bootstrap-sass
   coffee-rails (~> 3.2.1)
   debugger
   haml
+  haml-contrib
+  haml-rails
   jquery-rails
   pg
   rails (= 3.2.15)
