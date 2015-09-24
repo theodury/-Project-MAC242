@@ -1,0 +1,24 @@
+-# This file is app/view/movies/index.html.haml
+
+%h1 All Movies
+%table.table
+  %thead
+  %tr
+    %th
+      = link_to "Movie Title", movies_path(:sort => "title"), :id => "title_header"
+      %span.glyphicon{params[:sort] == "title" ? {:class => "glyphicon-star"} : {}} 
+    %th Rating
+    %th
+      = link_to "Release Date", movies_path(:sort => "release_date"), :id => "release_date_header"
+      %span.glyphicon{params[:sort] == "release_date" ? {:class => "glyphicon-star"} : {}} 
+    %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.title
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to raw('Info'),movie_path(movie), class: "btn btn-primary"
+     
+     
+= link_to 'Add Movie', new_movie_path, class: "btn btn-primary"
