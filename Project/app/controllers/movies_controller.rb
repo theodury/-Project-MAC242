@@ -1,17 +1,21 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
 
-  def index
-    
-    if params[:sort]
-      @sorting = params[:sort]
+    def initialize
+        @all_ratings = Movie.all_ratings
+        super
     end
 
+  def index
+    
+    self.sort
+    self.rate
     Movie.find(:all, :order => @sorting ? @sorting : :id).each do |movie|
+      if @ratings.keys.include? movie[:rating]
         (@movies ||= [ ]) << movie
+      end
     end
     
-    session[:sort] = @sorting
   end
 
   def show
@@ -46,6 +50,22 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+  
+  def sort
+    if params[:sort]
+      @sorting = params[:sort]
+    end
+  end
+  
+  def rate
+    if params[:ratings]
+      @ratings = params[:ratings]
+    else
+      @all_ratings.each do |rat|
+        (@ratings ||= { })[rat] = 1
+      end
+    end
   end
 
 end
