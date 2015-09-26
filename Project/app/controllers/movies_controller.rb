@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
     end
 
   def index
+    redirect = false
     
     self.sort
     self.rate
@@ -16,6 +17,12 @@ class MoviesController < ApplicationController
       end
     end
     
+    if redirect
+      redirect_to movies_path(:sort => @sorting, :ratings => @ratings)
+    end
+    
+    session[:sort]    = @sorting
+    session[:ratings] = @ratings
   end
 
   def show
@@ -55,12 +62,18 @@ class MoviesController < ApplicationController
   def sort
     if params[:sort]
       @sorting = params[:sort]
+    elsif session[:sort]
+      @sorting = session[:sort]
+      redirect = true
     end
   end
   
   def rate
     if params[:ratings]
       @ratings = params[:ratings]
+    elsif session[:ratings]
+      @ratings = session[:ratings]
+      redirect = true
     else
       @all_ratings.each do |rat|
         (@ratings ||= { })[rat] = 1
