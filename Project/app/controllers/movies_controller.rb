@@ -1,16 +1,15 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
 
-    def initialize
-        @all_ratings = Movie.all_ratings
-        super
-    end
+  def initialize
+    @all_ratings = Movie.all_ratings
+    super
+  end
 
   def index
     redirect = false
-    
-    self.sort
-    self.rate
+    redirect = self.sort
+    redirect = self.rate
     Movie.find(:all, :order => @sorting ? @sorting : :id).each do |movie|
       if @ratings.keys.include? movie[:rating]
         (@movies ||= [ ]) << movie
@@ -62,22 +61,25 @@ class MoviesController < ApplicationController
   def sort
     if params[:sort]
       @sorting = params[:sort]
+      return false
     elsif session[:sort]
       @sorting = session[:sort]
-      redirect = true
+      return true
     end
   end
   
   def rate
     if params[:ratings]
       @ratings = params[:ratings]
+      return false
     elsif session[:ratings]
       @ratings = session[:ratings]
-      redirect = true
+      return true
     else
       @all_ratings.each do |rat|
         (@ratings ||= { })[rat] = 1
       end
+      return false
     end
   end
 
